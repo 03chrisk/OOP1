@@ -32,7 +32,7 @@ class RegressionPlotter:
 
         Raises:
             Value Error when testing data is not an np.ndarray
-            Value Error when plot type is specified but not a string 
+            Value Error when plot type is specified but not a string
             Value error when plot type is a string but not 'generic'
         """
 
@@ -41,51 +41,24 @@ class RegressionPlotter:
             raise ValueError("Testing data must be an np.ndarray")
 
         if not isinstance(plot_type, str) and plot_type is not None:
-            raise ValueError("Plot type has to be the string 'generic' or left out")
+            raise ValueError("Plot type has to be the string 'generic' or left\
+            out")
 
         elif isinstance(plot_type, str) and plot_type != 'generic':
-            raise ValueError("Check your spelling. Plot type must be 'generic' or left out")
+            raise ValueError("Check your spelling. Plot type must be 'generic'\
+            or left out")
 
         num_features = X_test.shape[1]
 
         if plot_type == 'generic':
             self.__plot_generic(X_test, y_test)
-        elif num_features == 1:
-            self.__plot_regression(X_test, y_test)
         elif num_features == 2:
             self.__plot_3d_regression(X_test, y_test)
         else:
             self.__plot_generic(X_test, y_test)
 
-    def __plot_regression(self, X_test: np.ndarray, y_test: np.ndarray) -> None:
-        """
-        Plot a regression line given 1 feature and a target
-        """
-
-        if not isinstance(X_test, np.ndarray) or not isinstance(y_test,
-                                                                np.ndarray):
-            raise ValueError("Testing data must be an np.ndarray")
-
-        # Make predictions
-        model = self.get_model()
-        y_pred_test = model.predict(X_test)
-
-        # Plot the test set
-        plt.scatter(X_test, y_test, color='green', label='Actual Test')
-        plt.plot(X_test,
-                 y_pred_test,
-                 color='orange',
-                 linewidth=2,
-                 label='Predicted Test')
-
-        plt.title('Multiple Linear Regression')
-        plt.xlabel('Feature')
-        plt.ylabel('Target')
-        plt.legend()
-        plt.show()
-
     def __plot_3d_regression(self, X_test: np.ndarray,
-                           y_test: np.ndarray) -> None:
+                             y_test: np.ndarray) -> None:
         """
         Plot a regression plane given 2 features and a target
         """
@@ -111,8 +84,8 @@ class RegressionPlotter:
         x1_plane = np.linspace(min(x1), max(x1), 100)
         x2_plane = np.linspace(min(x2), max(x2), 100)
         x1_plane, x2_plane = np.meshgrid(x1_plane, x2_plane)
-        y_plane = model.predict(np.c_[x1_plane.ravel(),
-                                      x2_plane.ravel()]).reshape(x1_plane.shape)
+        y_plane = model.predict(np.c_[x1_plane.ravel(), x2_plane.ravel()]
+                                ).reshape(x1_plane.shape)
 
         # Plotting the plane
         ax.plot_surface(x1_plane,
@@ -133,7 +106,8 @@ class RegressionPlotter:
 
     def __plot_generic(self, X_test: np.ndarray, y_test: np.ndarray) -> None:
         """
-        Plot a sequence of p plots of 1 feature against the target given a p features and a target.
+        Plot a sequence of p plots of 1 feature against the target given a\
+        p features and a target.
         """
 
         if not isinstance(X_test, np.ndarray) or not isinstance(y_test,

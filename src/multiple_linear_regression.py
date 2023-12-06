@@ -39,7 +39,8 @@ class MultipleLinearRegression():
             # Find optimal parameter configuration
             result = np.linalg.inv(X_b.T.dot(X_b)).dot(X_b.T).dot(y_train)
         except np.linalg.LinAlgError as e:
-            raise ValueError("The matrix is singular and cannot be inverted") from e
+            raise ValueError("Dot product of X_b transpose with X_b\
+            is singular and cannot be inverted") from e
 
         self.set_coefficients(result)
 
