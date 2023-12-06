@@ -2,6 +2,7 @@ from src.multiple_linear_regression import MultipleLinearRegression
 from src.regression_plotter import RegressionPlotter
 from src.model_saver import ModelSaver
 
+from typing import Any
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
 import numpy as np
@@ -9,7 +10,7 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 
 
-def create_dataset(n):
+def create_dataset(n: int) -> np.ndarray:
     X, y = datasets.make_regression(n_samples=100,
                                     n_features=n,
                                     noise=10,
@@ -18,7 +19,9 @@ def create_dataset(n):
     return X_train, X_test, y_train, y_test
 
 
-def test_regression_model(model, X_test, y_test):
+def test_regression_model(model: Any,
+                          X_test: np.ndarray,
+                          y_test: np.ndarray) -> None:
     # Compare predictions to the ground truth by outputting
     prediction = model.predict(X_test).flatten()
 
@@ -26,7 +29,8 @@ def test_regression_model(model, X_test, y_test):
     print("Ground truth: ", y_test)
 
 
-def compare_model_coefficients(ourmodel, skmodel):
+def compare_model_coefficients(ourmodel: Any,
+                               skmodel: LinearRegression) -> None:
     our_coefficients = ourmodel.get_coefficients()
     sk_coefficients = skmodel.coef_
     sk_intercept = skmodel.intercept_
@@ -38,17 +42,22 @@ def compare_model_coefficients(ourmodel, skmodel):
     print("Sklearn Coefficients:", coefficients_with_intercept)
 
 
-def test_regression_plotter(model, X_test, y_test):
+def test_regression_plotter(model: Any,
+                            X_test: np.ndarray,
+                            y_test: np.ndarray) -> None:
     plotter = RegressionPlotter(model)
     plotter.plot_model(X_test, y_test)
 
 
-def test_regression_plotter_generic(model, X_test, y_test):
+def test_regression_plotter_generic(model: Any,
+                                    X_test: np.ndarray,
+                                    y_test: np.ndarray) -> None:
     plotter = RegressionPlotter(model)
     plotter.plot_model(X_test, y_test, plot_type='generic')
 
 
-def test_model_saver(model, format):
+def test_model_saver(model: Any,
+                     format: str) -> None:
     print("Coefficients of the model we are saving: ")
     print(model.get_coefficients())
 
