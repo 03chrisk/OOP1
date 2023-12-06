@@ -83,13 +83,15 @@ different classes. The getter does not take arguments and returns the model.
 
 The method plot_model takes 2 np.ndarrays as arguments (X_test, y_test) and also a string, plot_type and returns
 nothing. This is the only plotting method that we decided to set public, so the users can access and call this method
-and this method will call one of the other 3 plotting methods based on the input of the user without the user having to
+and this method will call one of the other 2 plotting methods based on the input of the user without the user having to
 think about how the plotting has to be done for the specific number of features they provided.
 
-The methods plot_regression, plot_3D_regression and plot_generic are all private methods, as the users do not have to
+The methods plot_3D_regression and plot_generic are both private methods, as the users do not have to
 be abel to use these, they will interact with the plot_model method as mentioned above and the plot_model method will
-call the adequate method out of the 3 private methods. These methods do not return anything (they print the plots) and
-they take as arguments 2 np.ndarrays. 
+call the adequate method out of the 2 private methods. These methods do not return anything (they print the plots) and
+they take as arguments 2 np.ndarrays. We only use these two methods because the generic plotter is also perfectly 
+capable of handling the case where there is only one feature, thus there is no need for a seperate method to handle
+the plotting of a model with 1 feature. 
 
 # class ModelSaver:
 
